@@ -1,0 +1,11 @@
+# pycache
+__pycache__/
+
+# typings
+typings/
+
+# all executables without extension
+workload/matmul/mm-*
+
+# gem5 raw output
+results/*/gem5_raw_output

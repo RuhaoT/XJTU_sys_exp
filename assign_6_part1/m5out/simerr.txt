@@ -1,0 +1,7 @@
+ValueError: ('No SE workload is compatible with %s', '/home/ruhaotian/XJTU_sys_exp/assign_6/00-SE-hello-world')
+
+At:
+  src/sim/Workload.py(174): init_compatible
+  src/python/gem5/components/boards/se_binary_workload.py(113): set_se_binary_workload
+  step1_hetero_arch_cpu.py(78): <module>
+  src/python/m5/main.py(675): main

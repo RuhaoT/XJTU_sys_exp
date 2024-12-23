@@ -1,0 +1,7 @@
+# all executables
+*.exe
+
+# auxilary files
+run_template.py
+
+riscv-gnu-toolchain**
