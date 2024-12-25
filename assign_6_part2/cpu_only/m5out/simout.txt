@@ -1,0 +1,9 @@
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 24.1.0.0
+gem5 compiled Dec 20 2024 21:24:42
+gem5 started Dec 21 2024 20:52:48
+gem5 executing on Book3Ultra-Ruhao, pid 71230
+command line: /home/ruhaotian/XJTU_sys_exp/gem5/build/RISCV_MESI_THREE/gem5.opt -re --debug-flags=SyscallAll step1_hetero_arch_cpu.py
+
