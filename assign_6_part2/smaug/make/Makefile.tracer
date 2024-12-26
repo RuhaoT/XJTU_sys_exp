@@ -1,0 +1,125 @@
+############ NOTES ###############
+# Define ACCEL_NAME, TRACER_HOME, ALADDIN_HOME, WORKLOAD, and SRCS
+# before including this.
+##################################
+
+include make/Makefile.common
+
+.PHONY: dma-trace-binary run-trace clean-trace src-symlinks
+
+##################################
+#         TOP LEVEL RULES        #
+##################################
+
+dma-trace-binary: DLEVEL=0
+dma-trace-binary:
+	@$(MAKE) -f make/Makefile.common --no-print-directory src-symlinks
+	@$(MAKE) -f make/Makefile.common --no-print-directory protos
+	@$(MAKE) -f make/Makefile.tracer --no-print-directory build-trace
+
+##################################
+#      COMPILATION FLAGS         #
+##################################
+
+TRACER = $(TRACER_HOME)/lib/full_trace.so
+LOGGER = $(TRACER_HOME)/lib/trace_logger.llvm
+GET_LABELED_STMTS = $(TRACER_HOME)/bin/get-labeled-stmts
+
+CPPFLAGS += -DTRACE_MODE -DDMA_MODE -Wno-deprecated-declarations
+LFLAGS += -lz
+
+################################
+#     BUILD PRODUCT REQS       #
+################################
+
+LLVM_VERSION = $(shell clang-6.0 --version | grep -o -m 1 "[0-9\.]\+" | head -n 1)
+
+ALL_TRACER_SRCS = $(BUILD_SRCS) $(BUILD_PROTO_CPP_SRCS) $(BUILD_GEM5_SRCS) $(BUILD_DIR)/$(MAIN)
+
+LLVM_OBJS = $(filter-out %.h %.S, \
+	$(patsubst %.c, %-opt.llvm, \
+	$(patsubst %.cpp, %-opt.llvm, $(ALL_TRACER_SRCS))))
+
+LABELMAPS = $(patsubst %-opt.llvm, %-labelmap, $(LLVM_OBJS))
+
+################################
+#         SANITY CHECKS        #
+################################
+
+#########################################################
+#        INSTRUMENTATION AND TRACE FILE GENERATION      #
+#########################################################
+
+build-trace: $(BUILD_DIR)/bin/$(EXEC)-instrumented
+
+%-labelmap: %.cpp
+	@echo Generating labelmap for $<
+	@$(GET_LABELED_STMTS) $^ -output $@ -- \
+			-I$(LLVM_HOME)/lib/clang/$(LLVM_VERSION)/include \
+			$(INCLUDES) $(CPPFLAGS) $(CXXFLAGS) -mf16c $(BMARK_SPECIFIC_CFLAGS)
+
+%-labelmap: %.c
+	@echo Generateing labelmap for $<
+	@$(GET_LABELED_STMTS) $^ -output $@ -- \
+			-I$(LLVM_HOME)/lib/clang/$(LLVM_VERSION)/include \
+			$(INCLUDES) $(CPPFLAGS) $(CFLAGS) -mf16c $(BMARK_SPECIFIC_CFLAGS)
+
+$(BUILD_DIR)/labelmap: $(LABELMAPS)
+	@rm -f $@
+	@for l in $^; do cat $$l >> $@; done
+
+$(BUILD_DIR)/full.llvm: $(LLVM_OBJS)
+	@echo Linking instrumented LLVM objects...
+	@llvm-link -o $@ $^ $(LOGGER)
+
+$(BUILD_DIR)/full.s: $(BUILD_DIR)/full.llvm
+	@llc -O0 -disable-fp-elim -filetype=asm -o $@ $<
+
+$(BUILD_DIR)/bin/$(EXEC)-instrumented: $(BUILD_DIR)/full.s
+	@echo Producing final binary...
+	@g++ -O0 -no-pie -fno-inline -o $@ $^ $(LFLAGS)
+
+# A release build of clang-6 will by default pass -discard-value-names to the
+# cc1 compiler, which changes value names into numeric registers. Because
+# there's no clang-6 option to avoid that, we directly run the raw cc1 command
+# with the option excluded.
+%-opt.llvm: %.c $(BUILD_DIR)/labelmap
+	@echo Building $<
+	@$(eval CC1_COMMAND=$(shell clang -g -O1 -S -fno-slp-vectorize \
+		-fno-vectorize -fno-unroll-loops \
+		-fno-inline -fno-builtin \
+		-mavx \
+		-mf16c \
+		-emit-llvm \
+		$(INCLUDES) \
+		$(CPPFLAGS) \
+		$(BMARK_SPECIFIC_CFLAGS) \
+		-o $*.llvm $< -### 2>&1 >/dev/null | tail -n 1 | sed 's/"-discard-value-names"//g'))
+	@$(CC1_COMMAND)
+	@opt -S -load=$(TRACER) -fulltrace \
+				-labelmapwriter -trace-all-callees -i $(BUILD_DIR)/labelmap \
+				$*.llvm -o $*-opt.llvm
+
+%-opt.llvm: %.cpp $(BUILD_DIR)/labelmap
+	@echo Building $<
+	@$(eval CC1_COMMAND=$(shell clang++ -g -O1 -S -fno-slp-vectorize \
+		-fno-vectorize -fno-unroll-loops \
+		-fno-inline -fno-builtin \
+		-mavx \
+		-mf16c \
+		-emit-llvm \
+		-std=c++11 \
+		-D_GLIBCXX11_USE_CXX11_ABI=1 \
+		$(INCLUDES) \
+		$(CPPFLAGS) \
+		$(BMARK_SPECIFIC_CFLAGS) \
+		-o $*.llvm $< -### 2>&1 >/dev/null | tail -n 1 | sed 's/"-discard-value-names"//g'))
+	@$(CC1_COMMAND)
+	@opt -S -load=$(TRACER) -fulltrace \
+				-labelmapwriter -trace-all-callees -i $(BUILD_DIR)/labelmap \
+				$*.llvm -o $*-opt.llvm
+
+clean-trace:
+	@echo "Cleaning trace build products..."
+	@find $(BUILD_DIR) -name "*.llvm" -o -name "*.s" -o -name "*labelmap" -o -name "*-instrumented" | xargs rm -f
+	@rm -f dynamic_trace.gz

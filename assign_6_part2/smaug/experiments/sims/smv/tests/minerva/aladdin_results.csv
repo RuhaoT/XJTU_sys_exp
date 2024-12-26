@@ -1,0 +1,17 @@
+Running,Top level function,Cycle,Upsampled Cycle,Avg Power (mW),Idle FU Cycles,Avg FU Power (mW),Avg FU Dynamic Power (mW),Avg FU Leakage Power (mW),Avg MEM Power (mW),Avg MEM Dynamic Power (mW),Avg MEM Leakage Power (mW),Total Area (uM^2),FU Area (uM^2),MEM Area (uM^2),Num Multipliers,Num Adders,Num Bit-wise Operators,Num Shifters,Num Registers
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,21022,0,29.7297,16891,8.71926,1.94546,6.7738,21.0104,2.09944,18.911,1.70214e+06,562251,1.13989e+06,9,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19702,0,32.0347,15725,8.75339,2.05745,6.69594,23.2813,4.3703,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19699,0,34.1662,15722,8.7537,2.05776,6.69594,25.4125,6.50149,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19699,0,36.2967,15722,8.75368,2.05774,6.69594,27.543,8.63201,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19473,0,38.576,15496,8.77758,2.08164,6.69594,29.7984,10.8874,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19791,0,40.4883,15814,8.74416,2.04822,6.69594,31.7441,12.8331,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19633,0,42.7457,15656,8.76065,2.06471,6.69594,33.9851,15.0741,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19527,0,44.988,15550,8.77181,2.07587,6.69594,36.2162,17.3052,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19468,0,47.2026,15491,8.77814,2.08221,6.69594,38.4245,19.5135,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19746,0,49.024,15769,8.74885,2.05291,6.69594,40.2752,21.3642,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19688,0,51.2247,15711,8.75488,2.05894,6.69594,42.4698,23.5588,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19537,0,53.5709,15560,8.77082,2.07488,6.69594,44.8001,25.8891,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19822,0,55.2861,15845,8.74093,2.04499,6.69594,46.5452,27.6342,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19690,0,57.6166,15713,8.75464,2.0587,6.69594,48.8619,29.9509,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,19537,0,60.0155,15560,8.77082,2.07488,6.69594,51.2447,32.3337,18.911,1.69579e+06,555900,1.13989e+06,8,128,33,14,1633
+./outputs/nnet_fwd,smv_matrix_multiply_transpose_nc_vec_fxp,20025,0,61.358,15995,8.75423,1.99321,6.76102,52.6038,33.6928,18.911,1.70309e+06,563204,1.13989e+06,9,144,35,18,1609

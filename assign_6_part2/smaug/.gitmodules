@@ -1,0 +1,9 @@
+[submodule "FP16"]
+	path = third_party/FP16
+	url = https://github.com/xyzsam/FP16
+[submodule "Catch2"]
+	path = third_party/Catch2
+	url = https://github.com/catchorg/Catch2
+[submodule "experiments"]
+	path = experiments
+	url = https://github.com/yaoyuannnn/experiments

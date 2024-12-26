@@ -1,0 +1,18 @@
+gem5 Simulator System.  http://gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 compiled Dec 23 2024 07:45:21
+gem5 started Dec 25 2024 14:02:18
+gem5 executing on d5eff1f67f49, pid 84631
+command line: /workspace/gem5-aladdin/src/aladdin/../../build/X86/gem5.opt --debug-flags=Aladdin,HybridDatapath --outdir=/workspace/smaug/experiments/sims/smv/tests/minerva/outputs_cpu --stats-db-file=stats.db /workspace/gem5-aladdin/src/aladdin/../../configs/example/se.py --num-cpus=1 --mem-size=4GB --mem-type=LPDDR4_3200_2x16 --sys-clock=1.25GHz --cpu-clock=2.5GHz --cpu-type=DerivO3CPU --ruby --access-backing-store --l2_size=2097152 --l2_assoc=16 --cacheline_size=32 --fast-forward=10000000000 -c /workspace/smaug/experiments/../build/bin/smaug -o '/workspace/smaug/experiments/models/minerva/minerva_smv_topo.pbtxt /workspace/smaug/experiments/models/minerva/minerva_smv_params.pb --sample-level=high --gem5 --debug-level=0'
+
+Global frequency set at 1000000000000 ticks per second
+Switch at instruction count:10000000000
+Model topology file: /workspace/smaug/experiments/models/minerva/minerva_smv_topo.pbtxt
+Model parameters file: /workspace/smaug/experiments/models/minerva/minerva_smv_params.pb
+Sampling level: high, number of sample iterations: 1
+Number of accelerators: 1
+Switched CPUS @ tick 6355495200
+switching cpus
+**** REAL SIMULATION ****
+Exiting @ tick 6519402400 because user interrupt received

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package smaug;
+
+import "smaug/core/node.proto";
+import "smaug/core/types.proto";
+
+message GraphProto {
+  string name = 1;
+  repeated NodeProto nodes = 2;
+  // The backend that this graph should run on
+  string backend = 3;
+  HostMemoryAccessPolicy mem_policy = 4;
+}

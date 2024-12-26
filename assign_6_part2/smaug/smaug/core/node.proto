@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package smaug;
+
+import "smaug/core/tensor.proto";
+import "smaug/core/types.proto";
+
+message ConvParams {
+  PaddingType padding = 1;
+  repeated int32 stride = 2;
+}
+
+message PoolParams {
+  repeated int32 stride = 1;
+  repeated int32 pool_size = 2;
+}
+
+message PaddingParams {
+  repeated int32 padding_size = 1;
+}
+
+message ConcatParams {
+  int32 concat_axis = 1;
+}
+
+message SplitParams {
+  int32 split_axis = 1;
+}
+
+message LreluParams {
+  float slope = 1;
+}
+
+message EluParams {
+  float alpha = 1;
+  float lambda_param = 2;
+}
+
+message HardTanhParams {
+  float min = 1;
+  float max = 2;
+}
+
+message ActivationParams {
+  OpType activation = 1;
+  oneof value {
+    LreluParams lrelu_params = 2;
+    EluParams elu_params = 3;
+    HardTanhParams hard_tanh_params = 4;
+  }
+}
+
+message MyCustomParams {
+  int32 param1 = 1;
+  int32 param2 = 2;
+}
+
+message Params {
+  oneof value {
+    ConvParams conv_params = 1;
+    PoolParams pool_params = 2;
+    ConcatParams concat_params = 4;
+    SplitParams split_params = 5;
+    PaddingParams padding_params = 6;
+    MyCustomParams my_custom_params = 7;
+  }
+  ActivationParams act_params = 3;
+}
+
+message NodeProto {
+  // Unique node name in the form of "scopes:name". Scopes are optional.
+  string name = 1;
+  OpType op = 2;
+  // Parents of this node.
+  repeated string parents = 3;
+  // The size of src_tensors_indices must be the same as `parents`. For each
+  // parent node parents[i], src_tensors_indices[i] indicates the index of its
+  // output tensor that becomes the input tensor of this node. Note that if a
+  // parent has multiple output tensors connected to this node, we would have to
+  // specify that one operator multiple times in the parents field, with
+  // different src_tensors_indices.
+  repeated int32 src_tensors_indices = 5;
+  // In theory, we could specify the above node-to-node connection information
+  // in TensorProto, but the current proto design seems easier for the C++
+  // side which was built to construct the operators first and then create
+  // tensors.
+  repeated TensorProto input_tensors = 6;
+  repeated TensorProto output_tensors = 7;
+  // Parameters
+  Params params = 8;
+}

@@ -1,0 +1,126 @@
+name: "minerva_smv"
+nodes {
+  name: "data"
+  op: Data
+  input_tensors {
+    name: "data/input0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "data_1"
+  op: Data
+  input_tensors {
+    name: "data_1/input0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: CN
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data_1/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: CN
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "reorder"
+  op: Reorder
+  parents: "data_1"
+  src_tensors_indices: 0
+  input_tensors {
+    name: "data_1/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: CN
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "reorder/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "mat_mul"
+  op: InnerProduct
+  parents: "data"
+  parents: "reorder"
+  src_tensors_indices: 0
+  src_tensors_indices: 0
+  input_tensors {
+    name: "data/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  input_tensors {
+    name: "reorder/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "mat_mul/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  params {
+  }
+}
+backend: "SMV"
+mem_policy: AllDma

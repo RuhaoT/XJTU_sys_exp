@@ -1,0 +1,49 @@
+warn: Memory mode will be changed to atomic_noncaching
+0: system.remote_gdb: listening for remote gdb on port 7000
+tcmalloc: large alloc 1073741824 bytes == 0x559212738000 @  0x7fba0cb42887 0x5591f1f4c509 0x5591f1a8e2f6 0x5591f15e86c4 0x7fba0d90d763 0x7fba0da4b908 0x7fba0d90c366 0x7fba0da4b908 0x7fba0d90c366 0x7fba0da4b908 0x7fba0d9065d9 0x7fba0d90d230 0x7fba0da4b908 0x7fba0d90c366 0x7fba0da4b908 0x7fba0d9065d9 0x7fba0d9b66f6 0x5591f171aed3 0x5591f1538d78 0x7fba0b8acb97 0x5591f156c5ea
+info: Entering event queue @ 0.  Starting simulation...
+warn: ignoring syscall access(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+info: Increasing stack size by one page.
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall access(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: ignoring syscall mprotect(...)
+warn: mmap failing: arguments not page-aligned: start 0x7ffff7ff9000 length 0x59a0
+warn: ignoring syscall set_robust_list(...)
+warn: ignoring syscall rt_sigaction(...)
+      (further warnings will be suppressed)
+warn: ignoring syscall rt_sigprocmask(...)
+      (further warnings will be suppressed)
+warn: x86 cpuid family 0x0000: unimplemented function 2
+warn: x86 cpuid family 0x0000: unimplemented function 2
+warn: x86 cpuid family 0x0000: unimplemented function 2
+warn: instruction 'fcomi' unimplemented
+warn: MOVNTDQ: Ignoring non-temporal hint, modeling as cacheable!
+info: Increasing stack size by one page.
+info: Entering event queue @ 6355495200.  Starting simulation...
+warn: ClockedObject: Already in the requested power state, request ignored
+info: Entering event queue @ 6355495600.  Starting simulation...
+warn: Replacement policy updates recently became the responsibility of SLICC state machines. Make sure to setMRU() near callbacks in .sm files!

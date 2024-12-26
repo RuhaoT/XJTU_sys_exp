@@ -1,0 +1,4 @@
+model_dir=`git rev-parse --show-toplevel`/models
+
+topo_file=${model_dir}/minerva/minerva_smv_topo.pbtxt
+params_file=${model_dir}/minerva/minerva_smv_params.pb

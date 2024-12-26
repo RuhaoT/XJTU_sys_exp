@@ -1,0 +1,348 @@
+name: "minerva_smv"
+nodes {
+  name: "data"
+  op: Data
+  input_tensors {
+    name: "data/input0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 28
+      dims: 28
+      dims: 1
+      layout: NHWC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 28
+      dims: 28
+      dims: 1
+      layout: NHWC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "reorder"
+  op: Reorder
+  parents: "data"
+  src_tensors_indices: 0
+  input_tensors {
+    name: "data/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 28
+      dims: 28
+      dims: 1
+      layout: NHWC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "reorder/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 784
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "data_1"
+  op: Data
+  input_tensors {
+    name: "data_1/input0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 784
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data_1/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 784
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "mat_mul"
+  op: InnerProduct
+  parents: "reorder"
+  parents: "data_1"
+  src_tensors_indices: 0
+  src_tensors_indices: 0
+  input_tensors {
+    name: "reorder/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 784
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  input_tensors {
+    name: "data_1/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 784
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "mat_mul/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  params {
+    act_params {
+      activation: ReLU
+    }
+  }
+}
+nodes {
+  name: "data_2"
+  op: Data
+  input_tensors {
+    name: "data_2/input0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data_2/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "mat_mul_1"
+  op: InnerProduct
+  parents: "mat_mul"
+  parents: "data_2"
+  src_tensors_indices: 0
+  src_tensors_indices: 0
+  input_tensors {
+    name: "mat_mul/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  input_tensors {
+    name: "data_2/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "mat_mul_1/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  params {
+    act_params {
+      activation: ReLU
+    }
+  }
+}
+nodes {
+  name: "data_3"
+  op: Data
+  input_tensors {
+    name: "data_3/input0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data_3/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "mat_mul_2"
+  op: InnerProduct
+  parents: "mat_mul_1"
+  parents: "data_3"
+  src_tensors_indices: 0
+  src_tensors_indices: 0
+  input_tensors {
+    name: "mat_mul_1/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  input_tensors {
+    name: "data_3/output0"
+    data_type: Float16
+    shape {
+      dims: 256
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "mat_mul_2/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  params {
+    act_params {
+      activation: ReLU
+    }
+  }
+}
+nodes {
+  name: "data_4"
+  op: Data
+  input_tensors {
+    name: "data_4/input0"
+    data_type: Float16
+    shape {
+      dims: 10
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "data_4/output0"
+    data_type: Float16
+    shape {
+      dims: 10
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+}
+nodes {
+  name: "mat_mul_3"
+  op: InnerProduct
+  parents: "mat_mul_2"
+  parents: "data_4"
+  src_tensors_indices: 0
+  src_tensors_indices: 0
+  input_tensors {
+    name: "mat_mul_2/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  input_tensors {
+    name: "data_4/output0"
+    data_type: Float16
+    shape {
+      dims: 10
+      dims: 256
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  output_tensors {
+    name: "mat_mul_3/output0"
+    data_type: Float16
+    shape {
+      dims: 1
+      dims: 10
+      layout: NC
+      alignment: 8
+    }
+    data_format: Uncompressed
+  }
+  params {
+  }
+}
+backend: "SMV"
+mem_policy: AllDma
