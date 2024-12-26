@@ -1,0 +1,2 @@
+replacement_policy,prefetcher_type,l1_cache_sample_seed,l2_cache_sample_seed,l3_cache_sample_seed,big_core_width,big_core_rob_size,big_core_num_int_regs,big_core_num_fp_regs,small_core_width,small_core_rob_size,small_core_num_int_regs,small_core_num_fp_regs,big_core_num,small_core_num,matsize,experiment_index
+LRURP,Stride,1,4,4,10,40,50,50,2,30,40,40,1,1,256,0

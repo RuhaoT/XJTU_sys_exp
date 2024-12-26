@@ -1,8 +1,7 @@
-
 #ifndef __MATMUL_IJK_MULTIPLY_H__
 #define __MATMUL_IJK_MULTIPLY_H__
 
-void multiply(double** A, double** B, double** C, int size)
+void multiply(short int** A, short int** B, short int** C, int size)
 {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {

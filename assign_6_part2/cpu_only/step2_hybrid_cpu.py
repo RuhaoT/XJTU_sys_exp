@@ -35,7 +35,7 @@ def generate_metaparam_combinations(
 
 if __name__ == "__main__":
     # step 1: experiment preparation
-    EXP_NAME = "step1_debug"
+    EXP_NAME = "step2_cpu_only"
     META_PARAM_FILE_NAME = "step1_experiment_metaparams.csv"
     GEM5_RAW_FOLDER_NAME = "gem5_raw_output"
     DATA_FILE_NAME = "step1_experiment_data.csv"
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     ]
 
     CURR_DIR_ABS_PATH = os.path.dirname(os.path.abspath(__file__))
-    EXECUTOR_REL_PATH = "step1_experiment_executor.py"
+    EXECUTOR_REL_PATH = "step2_experiment_executor.py"
     WORKLOAD_REL_PATH = "workload/matmul/mm-ijk-gem5"
     RESULT_FOLDER_REL_PATH = "results"
     GEM5_ABS_PATH = "/home/ruhaotian/XJTU_sys_exp/gem5/build/RISCV/gem5.opt"
@@ -73,11 +73,11 @@ if __name__ == "__main__":
 
     # step 2: parameterization
     meta_params = step1_dataclass.ExperimentMetaParameter(
-        replacement_policy=["LRURP", "LFURP", "SecondChanceRP"],
-        prefetcher_type=["Tagged", "Stride", "ISB"],
-        l1_cache_sample_seed=[1, 2, 4],
-        l2_cache_sample_seed=[1, 2, 4],
-        l3_cache_sample_seed=[1, 2, 4],
+        replacement_policy=["LRURP"],
+        prefetcher_type=["Stride"],
+        l1_cache_sample_seed=[1],
+        l2_cache_sample_seed=[4],
+        l3_cache_sample_seed=[4],
         big_core_width=10,
         big_core_rob_size=40,
         big_core_num_int_regs=50,
@@ -86,9 +86,9 @@ if __name__ == "__main__":
         small_core_rob_size=30,
         small_core_num_int_regs=40,
         small_core_num_fp_regs=40,
-        big_core_num=2,
-        small_core_num=2,
-        matsize=[64],
+        big_core_num=1,
+        small_core_num=1,
+        matsize=[256],
     )
     # save the metaparam combinations to a csv file
     meta_file = os.path.join(result_dir, META_PARAM_FILE_NAME)
