@@ -1,8 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./typings"
-    ],
-    "pylint.args": [
-        "\"pylint.args\": [\"--ignored-modules=('m5','gem5')\"]"
-    ]
-}

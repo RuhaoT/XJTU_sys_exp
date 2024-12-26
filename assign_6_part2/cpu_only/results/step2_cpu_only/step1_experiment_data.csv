@@ -1,0 +1,2 @@
+experiment_index,simSeconds,simInsts,avg_big_l1i_missrate,avg_big_l1d_missrate,avg_big_l2_missrate,avg_little_l1i_missrate,avg_little_l1d_missrate,avg_little_l2_missrate,avg_l3_missrate
+0,0.1178,397641253,2.1e-05,0.136537,0.426963,1.1e-05,0.154125,0.219524,0.01702

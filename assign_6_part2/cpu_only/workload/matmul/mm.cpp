@@ -58,21 +58,21 @@ int main(int argc, char** argv)
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0, 1);
 
-    double *dataA = new double [matrix_size * matrix_size];
-    double *dataB = new double [matrix_size * matrix_size];
-    double *dataC = new double [matrix_size * matrix_size];
+    short int *dataA = new short int [matrix_size * matrix_size];
+    short int *dataB = new short int [matrix_size * matrix_size];
+    short int *dataC = new short int [matrix_size * matrix_size];
 
-    double **A = new double* [matrix_size];
-    double **B = new double* [matrix_size];
-    double **C = new double* [matrix_size];
+    short int **A = new short int* [matrix_size];
+    short int **B = new short int* [matrix_size];
+    short int **C = new short int* [matrix_size];
 
     for (int i = 0; i < matrix_size; i++)    {
         A[i] = &dataA [matrix_size * i];
         B[i] = &dataB [matrix_size * i];
         C[i] = &dataC [matrix_size * i];
         for (int j = 0; j < matrix_size; j++) {
-            A[i][j] = dis(gen);
-            B[i][j] = dis(gen);
+            A[i][j] = static_cast<short int>(dis(gen) * 32767);
+            B[i][j] = static_cast<short int>(dis(gen) * 32767);
             C[i][j] = 0;
         }
     }
